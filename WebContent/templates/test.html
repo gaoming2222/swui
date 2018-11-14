@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Editor Table Data</title>
+
+<link href="https://cdn.datatables.net/1.10.17/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<link href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" rel="stylesheet">
+
+<link href="https://cdn.datatables.net/select/1.2.6/css/select.dataTables.min.css" rel="stylesheet">
+
+<link href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet">
+
+
+<script type="text/javascript" language="javascript" src="../static/js/jquery-3.3.1.js"></script>
+
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.17/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.2.6/js/dataTables.select.min.js"></script>
+
+<script type="text/javascript" language="javascript" src="../static/js/dataTables.editor.min.js"></script>
+
+<script type="text/javascript">
+
+ 
+
+var editor; // use a global for the submit and returndata rendering in the examples
+
+$(document).ready(function() {
+
+   editor = new $.fn.dataTable.Editor({  
+
+        ajax: "{$smarty.const.__CONTROLLER__}/HandleEditTableData",
+
+        type: 'post',
+
+        table: "#example",
+
+        idSrc: 'UI_ID',
+
+        fields: [ {
+
+                label: "First name:",
+
+                name: "UI_ID"
+
+            }, {
+
+                label: "Last name:",
+
+                name: "UI_DEPARTMENT"
+
+            }, {
+
+                label: "Position:",
+
+                name: "UI_ROOM"
+
+            }, {
+
+                label: "Office:",
+
+                name: "UI_NAME"
+
+            }, {
+
+                label: "Extension:",
+
+                name: "UI_SHORTNAME"
+
+            }, {
+
+                label: "Salary:",
+
+                name: "UI_TELE_NO",
+
+               type:"readonly"
+
+            }
+
+        ],
+
+        formOptions: {
+
+            inline: {
+
+                onBlur: 'submit'
+
+            }
+
+        }
+
+   } );
+
+ 
+
+    var table=$('#example').DataTable({
+
+        dom: "Bfrtip",
+
+        ajax: "{$smarty.const.__CONTROLLER__}/GetTableData",
+
+        columns: [
+
+            {
+
+                data: null,
+
+                defaultContent: '',
+
+                className: 'select-checkbox',
+
+                orderable: false
+
+            },
+
+            { "data": "UI_ID"},
+
+            { "data": "UI_DEPARTMENT"},
+
+            { "data": "UI_ROOM"},
+
+            { "data": "UI_NAME"},
+
+            { "data": "UI_SHORTNAME"},
+
+            { "data": "UI_TELE_NO"}
+
+        ],
+
+        select: {
+
+            style:    'os',
+
+            selector: 'td:first-child'
+
+        },
+
+        buttons: [
+
+            { extend: "create", editor: editor },
+
+            { extend: "edit",   editor: editor },
+
+            { extend: "remove", editor: editor }
+
+        ]
+
+   } );
+
+ 
+
+   $('#example').on('dblclick','tbody td:not(:first-child)', function (e){
+
+        editor.inline( this );
+
+   } );
+
+  } );
+
+</script>
+
+ 
+
+</head>
+
+<body>
+
+<table id="example"class="display" cellspacing="0" style="text-align:center;">
+
+        <thead>
+
+            <tr>
+
+                <th></th>
+
+                <th>UI_ID</th>
+
+                <th>UI_DEPARTMENT</th>
+
+                <th>UI_ROOM</th>
+
+                <th>UI_NAME</th>
+
+                <th>UI_SHORTNAME</th>
+
+                <th>UI_TELE_NO</th>
+
+            </tr>
+
+        </thead>
+
+   </table>
+
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>水文局门户</title>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.17/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.6/css/select.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+
+
+
+
+<script type="text/javascript" language="javascript" src="../static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.17/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.2.6/js/dataTables.select.min.js"></script>
+<script type="text/javascript" language="javascript" src="../static/js/bootstrap.js"></script>
+<script type="text/javascript" language="javascript" src="../static/js/sw/index.js"></script>
+</head>
+<body>
+<!-- <header>
+	
+    <div>
+		<iframe MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no src="header.html" width="100%"  height="auto"></iframe>
+    </div>
+</header> -->
+<div class="page-header">
+    <h1 align = "center">
+    	人工站数据管理
+    </h1>
+</div>
+
+<div class="page-header">
+	<form class="bs-example bs-example-form" role="form">
+		<table style="table-layout:fixed;">
+		  <!-- <tr>
+		  	<td width="120px"></td>
+		    <td><span class="input-group-addon">站号：</span></td>
+		    <td><input type="text" id="station_id" style="width:300px; height:30px;"/></td>
+		    <td width="200px"></td>
+		    <td><span class="input-group-addon">传输类型：</span></td>
+		    <td><input type="text" id="trans_typ" style="width:300px; height:30px;"/></td>
+		    <td></td>
+		  </tr> -->
+		  <tr>
+		  	<td width="120px"></td>
+		    <td><span class="input-group-addon">开始时间：</span></td>
+		    <td><input type="datetime-local" step="01" id="strt_tim" style="width:300px; height:30px;"/></td>
+		    <td width="200px"></td>
+		    <td><span class="input-group-addon">结束时间：</span></td>
+		    <td><input type="datetime-local" step="01" id="end_tim" style="width:300px; height:30px;"/></td>
+		    <td></td>
+		  </tr>
+		  
+		  <tr>
+		  	<td></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td></td>
+		    <td>
+		    <button id="search_btn" data-loading-text="search..." class="btn btn-primary">查询</button>
+		    <button id="add_btn"  class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">新增</button>
+		  </tr>
+		</table>
+	</form>
+</div>
+
+
+	
+<table class="table table-striped table-bordered table-hover dataTable myTable" id="table_id" width="100%" role="grid"   aria-describedby="editable_info">
+</table>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">新增</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span class="input-group-addon">站号：</span></td>
+                        <input type="text" id="StationID" name="StationID" class="form-control" placeholder="站点ID" style="width:300px; height:30px;"/>
+                    </div>
+                    <div class="form-group">
+                    	<span class="input-group-addon">时间：</span></td>
+                        <input type="datetime-local" step="01" name="Datatime"  id="Datatime" class="form-control" placeholder="时间" style="width:300px; height:30px;"/>   
+                    </div>
+                    <div class="form-group">
+                    	<span class="input-group-addon">水温：</span></td>
+                        <input type="text" name="ATMP"  id="ATMP" class="form-control" placeholder="水温" style="width:300px; height:30px;"/>
+                    </div>
+                    <div class="form-group">
+                    	<span class="input-group-addon">气温：</span></td>
+                        <input type="text" name="WTMP"  id="WTMP" class="form-control" placeholder="气温" style="width:300px; height:30px;"/>
+                    </div>
+                    <div class="form-group">
+                    	<span class="input-group-addon">水位：</span></td>
+                        <input type="text" name="data"  id="data" class="form-control" placeholder="水位" style="width:300px; height:30px;"/>
+                    </div>
+                    <div class="form-group">
+                    	<span class="input-group-addon">流量：</span></td>
+                        <input type="text" name="dataplus"  id="dataplus" class="form-control" placeholder="流量" style="width:300px; height:30px;"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button onclick="add()" type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="modal fade" id="myEdtModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span class="input-group-addon">站号：</span></td>
+                        <input type="text" id="StationIDEdt" class="form-control" placeholder="站点ID" style="width:300px; height:30px;" disabled="disabled"/>
+                    </div>
+                    <div class="form-group">
+                    	<span class="input-group-addon">时间：</span></td>
+                        <input type="text" step="01" name="DatatimeEdt"  id="DatatimeEdt" class="form-control" placeholder="时间" style="width:300px; height:30px;" disabled="disabled"/>   
+                    </div>
+                    <div class="form-group">
+                    	<span class="input-group-addon">水温：</span></td>
+                        <input type="text" name="ATMPEdt"  id="ATMPEdt" class="form-control" placeholder="水温" style="width:300px; height:30px;"/>
+                    </div>
+                    <div class="form-group">
+                    	<span class="input-group-addon">气温：</span></td>
+                        <input type="text" name="WTMPEdt"  id="WTMPEdt" class="form-control" placeholder="气温" style="width:300px; height:30px;"/>
+                    </div>
+                    <div class="form-group">
+                    	<span class="input-group-addon">水位：</span></td>
+                        <input type="text" name="dataEdt"  id="dataEdt" class="form-control" placeholder="水位" style="width:300px; height:30px;"/>
+                    </div>
+                    <div class="form-group">
+                    	<span class="input-group-addon">流量：</span></td>
+                        <input type="text" name="dataplusEdt"  id="dataplusEdt" class="form-control" placeholder="流量" style="width:300px; height:30px;"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button  type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button onclick="edt()" type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- <footer class="footer navbar-fixed-bottom ">
+    <div>
+	<iframe MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no src="footer.html" width="100%"  height="auto"></iframe>
+    </div>
+</footer> -->
+
+</body>
+</html>
